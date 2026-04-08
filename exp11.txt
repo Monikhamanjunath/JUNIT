@@ -1,0 +1,78 @@
+To get both files into your package without any errors, follow these exact steps in Eclipse. We will assume the package name is `greetingApp`.
+
+### Step 1: Create the Package
+1.  Open the **Package Explorer** on the left side of Eclipse.
+2.  Right-click on the **`src`** folder.
+3.  Select **New** > **Package**.
+4.  In the "Name" field, type `greetingApp` and click **Finish**.
+
+### Step 2: Create the Greeting.java File
+1.  Right-click on your new **`greetingApp`** package.
+2.  Select **New** > **Class**.
+3.  In the "Name" field, type `Greeting`.
+4.  Click **Finish**.
+5.  **Delete everything** in the new file and paste this:
+
+```java
+package greetingApp;
+
+public class Greeting {
+    public String getMessage(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return "Hello, Guest!";
+        }
+        return "Hello, " + name + "!";
+    }
+
+    public static void main(String[] args) {
+        Greeting g = new Greeting();
+        System.out.println(g.getMessage("User"));
+    }
+}
+```
+
+### Step 3: Create the GreetingTest.java File
+1.  Right-click on the **`greetingApp`** package again.
+2.  Select **New** > **Class**.
+3.  In the "Name" field, type `GreetingTest`.
+4.  Click **Finish**.
+5.  **Delete everything** in the new file and paste this:
+
+```java
+package greetingApp;
+
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+public class GreetingTest {
+    private Greeting g;
+
+    @Before
+    public void setUp() {
+        g = new Greeting();
+    }
+
+    @Test
+    public void testMessage() {
+        // Strict fix: Use 'g.' before getMessage to avoid "undefined" error
+        assertEquals("Hello, Monikha!", g.getMessage("Monikha"));
+    }
+}
+```
+
+### Step 4: Add JUnit 4 (Essential)
+If you see red lines on `@Test`, you must add the library:
+1.  Right-click the **Project Name** in Package Explorer.
+2.  Go to **Build Path** > **Configure Build Path...**
+3.  Click the **Libraries** tab.
+4.  Click **Add Library...** on the right.
+5.  Select **JUnit** and click **Next**.
+6.  In the dropdown, choose **JUnit 4** and click **Finish**, then **Apply and Close**.
+
+### Step 5: Run the Test
+1.  Right-click `GreetingTest.java` in the Package Explorer.
+2.  Select **Run As** > **JUnit Test**.
+
+You should now see the JUnit window with a **Green Bar**. This confirms that the logic class and test class are communicating perfectly through the `g.` object reference.
+
